@@ -1,37 +1,22 @@
 import mongoose from "mongoose";
 
-const RestaurantSchema = new mongoose.Schema(
+const ReviewSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
-    city: { type: String, required: true },
-    address: { type: String, required: true },
-    mapLocation: { type: String, required: true },
-    cuisine: [String],
-    restaurantTimings: String,
-    contactNumber: Number,
-    website: String,
-    popularDishes: [String],
-    averageCost: Number,
-    amenties: [String],
-    menuImages: {
+    food: { type: mongoose.Types.ObjectId, ref: "foods" },
+    restaurant: { type: mongoose.Types.ObjectId, ref: "restaurants" },
+    user: { type: mongoose.Types.ObjectId, ref: "users" },
+    rating: { type: Number, required: true },
+    reviewText: { type: String, required: true },
+    isRestaurantReview: Boolean,
+    isFoodReview: Boolean,
+    photos: {
       type: mongoose.Types.ObjectId,
       ref: "images",
     },
-    menu: {
-      type: mongoose.Types.ObjectId,
-      ref: "menus",
-    },
-    reviews: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "reviews",
-      },
-    ],
-    photos: { type: mongoose.Types.ObjectId, ref: "images" },
   },
   {
     timestamps: true,
   }
 );
 
-export const RestaurantModel = mongoose.model("restaurants", RestaurantSchema);
+export const ReviewModel = mongoose.model("reviews", ReviewSchema);

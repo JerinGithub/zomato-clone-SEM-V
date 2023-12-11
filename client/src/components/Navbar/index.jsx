@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 // components
 import SignUp from "../Auth/Signup";
 import SignIn from "../Auth/Signin";
+
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../../redux/reducers/auth/auth.action";
+import { clearUser } from "../../redux/reducers/user/user.action";
 
 const MobileNav = ({
   user,
@@ -25,11 +31,21 @@ const MobileNav = ({
     setIsDropdownOpen(false);
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const SignOut = () => {
+    dispatch(signOut());
+    dispatch(clearUser());
+    navigate("/delivery");
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className="flex w-full items-center justify-between lg:hidden">
       <div className="w-28">
         <img
-          src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+          src="https://png.pngtree.com/template/20200610/ourmid/pngtree-food-delivery-logo-design-image_381320.jpg"
           alt="logo"
           className="w-full h-full"
         />
@@ -52,7 +68,7 @@ const MobileNav = ({
             </div>
             {isDropdownOpen && (
               <div className="absolute shadow-lg py-3 -bottom-14 w-36 z-20 flex flex-col gap-2 bg-white border border-gray-200">
-                <button>Sign Out</button>
+                <button onClick={SignOut}>Sign Out</button>
               </div>
             )}
           </>
@@ -95,12 +111,22 @@ const LargeNav = ({
     setIsDropdownOpen(false);
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const SignOut = () => {
+    dispatch(signOut());
+    dispatch(clearUser());
+    navigate("/delivery");
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className="w-full items-center justify-between hidden lg:flex px-14">
       <div className="gap-4  items-center justify-around flex">
         <div className="w-20">
           <img
-            src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+            src="https://png.pngtree.com/template/20200610/ourmid/pngtree-food-delivery-logo-design-image_381320.jpg"
             alt="logo"
             className="w-full h-full"
           />
@@ -143,7 +169,7 @@ const LargeNav = ({
             </div>
             {isDropdownOpen && (
               <div className="absolute shadow-lg py-3 -bottom-14 -right-0 w-36 z-20 flex flex-col gap-2 bg-white border border-gray-200">
-                <button>Sign Out</button>
+                <button onClick={SignOut}>Sign Out</button>
               </div>
             )}
           </>
@@ -178,9 +204,11 @@ const Navbar = () => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const user = {
-    //fullName: "Jerin",
-  };
+  // const user = {
+  //   // fullName: "Jerin",
+  // };
+
+  const user = useSelector((globalState) => globalState.user);
 
   return (
     <>

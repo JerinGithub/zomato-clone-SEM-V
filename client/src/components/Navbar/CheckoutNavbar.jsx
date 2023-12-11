@@ -20,7 +20,7 @@ const CheckoutNavbar = () => {
             />
             <div className="w-28">
               <img
-                src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+                src="https://png.pngtree.com/template/20200610/ourmid/pngtree-food-delivery-logo-design-image_381320.jpg"
                 alt="logo"
                 className="w-full h-full"
               />
